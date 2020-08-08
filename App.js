@@ -1,114 +1,140 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {Component} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import SignIn from './src/components/SignIn';
+import SignUp from './src/components/SignUp';
+import CodeVerification from './src/components/CodeVerification';
+import MainScreen from './src/components/Main/MainScreen';
+import Chat from './src/components/Main/Chat';
+import AddFriend from './src/components/Main/AddFriend';
+import Notification from './src/components/Main/Notification';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+const MainStack = createStackNavigator();
+const ChatStack = createStackNavigator();
+const AddFriendStack = createStackNavigator();
+const NotificationStack = createStackNavigator();
 
-const App: () => React$Node = () => {
+const MainStackScreen = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <MainStack.Navigator>
+      <MainStack.Screen
+        name="MainScreen"
+        component={MainScreen}
+        options={navOptionHandler}
+      />
+    </MainStack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+const ChatStackScreen = () => {
+  return (
+    <ChatStack.Navigator>
+      <ChatStack.Screen
+        name="Chat"
+        component={Chat}
+        options={navOptionHandler}
+      />
+    </ChatStack.Navigator>
+  );
+};
+
+const AddFriendStackScreen = () => {
+  return (
+    <AddFriendStack.Navigator>
+      <AddFriendStack.Screen
+        name="AddFriend"
+        component={AddFriend}
+        options={navOptionHandler}
+      />
+    </AddFriendStack.Navigator>
+  );
+};
+
+const NotificationStackScreen = () => {
+  return (
+    <NotificationStack.Navigator>
+      <NotificationStack.Screen
+        name="Notification"
+        component={Notification}
+        options={navOptionHandler}
+      />
+    </NotificationStack.Navigator>
+  );
+};
+
+const navOptionHandler = () => ({
+  headerShown: false,
 });
 
-export default App;
+function bottomTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home';
+          } else if (route.name === 'Chat') {
+            iconName = focused ? 'envelope-open-o' : 'envelope';
+          } else if (route.name == 'AddFriend') {
+            iconName = focused ? 'user-plus' : 'user-plus';
+          } else if (route.name == 'Notification') {
+            iconName = focused ? 'bell-o' : 'bell';
+          }
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#009387',
+        inactiveTintColor: 'gray',
+        labelStyle: {
+          fontSize: 16,
+          paddingTop: 20,
+          paddingBottom: 10,
+        },
+      }}>
+      <Tab.Screen name="Home" component={MainStackScreen} />
+      <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
+      <Tab.Screen name="Chat" component={ChatStackScreen} />
+      <Tab.Screen name="Notification" component={NotificationStackScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function drawer() {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="Chat" component={Chat} />
+      <Drawer.Screen name="Home" component={MainScreen} />
+    </Drawer.Navigator>
+  );
+}
+
+class AppContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    // const {signedIn} = this.props;
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="CodeVerification" component={CodeVerification} />
+          <Stack.Screen name="MainScreen" component={bottomTabs} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
+}
+export default AppContainer;
