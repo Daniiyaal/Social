@@ -12,6 +12,7 @@ import MainScreen from './src/components/Main/MainScreen';
 import Chat from './src/components/Main/Chat';
 import AddFriend from './src/components/Main/AddFriend';
 import Notification from './src/components/Main/Notification';
+import {View} from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,6 +21,16 @@ const MainStack = createStackNavigator();
 const ChatStack = createStackNavigator();
 const AddFriendStack = createStackNavigator();
 const NotificationStack = createStackNavigator();
+
+// function Header() {
+//   <View
+//     style={{
+//       flexDirection: 'row',
+//       height: 50,
+//       borderWidth: 1,
+//       borderColor: 'red',
+//     }}></View>;
+// }
 
 const MainStackScreen = () => {
   return (
@@ -33,7 +44,12 @@ const MainStackScreen = () => {
   );
 };
 
-const ChatStackScreen = () => {
+const ChatStackScreen = ({navigation, route}) => {
+  if (route.state && route.state.routeNames[route.state.index] === 'Chat') {
+    navigation.setOptions({tabBarVisible: false});
+  } else {
+    navigation.setOptions({tabBarVisible: true});
+  }
   return (
     <ChatStack.Navigator>
       <ChatStack.Screen
@@ -127,7 +143,7 @@ class AppContainer extends Component {
     // const {signedIn} = this.props;
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
+        <Stack.Navigator initialRouteName="SignUp" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="CodeVerification" component={CodeVerification} />

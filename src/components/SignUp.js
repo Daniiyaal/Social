@@ -270,7 +270,9 @@ const Signup = ({navigation}) => {
       confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
-
+  const onComplete = () => {
+    this.props.navigation.navigate('Chat', {name: this.state.username});
+  };
   const signUp = () => {
     // const {password, confirmPassword, username, email, accept} = this.state;
     // if (password !== confirmPassword) {
@@ -476,7 +478,7 @@ const Signup = ({navigation}) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate('SignIn')}
                 style={[
                   styles.signIn,
                   {

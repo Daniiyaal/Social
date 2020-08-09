@@ -65,7 +65,7 @@ export default class CodeVerification extends Component {
             //   }}
             onCodeFilled={(code) => this.onComplete(code)}
             placeholderCharacter="*"
-            placeholderTextColor="#ffffff"
+            placeholderTextColor="#000"
           />
         </SafeAreaView>
       </View>
