@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import SearchBar from '../SearchBar';
@@ -24,8 +30,10 @@ export default class MainScreen extends Component {
             />
           </TouchableOpacity>
         </View> */}
-        <UploadPosts />
-        <Posts />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <UploadPosts />
+          <Posts />
+        </ScrollView>
       </View>
     );
   }
