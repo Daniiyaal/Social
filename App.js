@@ -111,6 +111,7 @@ function bottomTabs() {
       tabBarOptions={{
         activeTintColor: '#009387',
         inactiveTintColor: 'gray',
+        swipeEnabled: true,
         labelStyle: {
           fontSize: 16,
           paddingTop: 20,
@@ -119,7 +120,7 @@ function bottomTabs() {
       }}>
       <Tab.Screen name="Home" component={MainStackScreen} />
       <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
-      <Tab.Screen name="Chat" component={ChatStackScreen} />
+      {/* <Tab.Screen name="Chat" component={ChatStackScreen} /> */}
       <Tab.Screen name="Notification" component={NotificationStackScreen} />
     </Tab.Navigator>
   );

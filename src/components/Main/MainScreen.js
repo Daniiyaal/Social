@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import SearchBar from '../SearchBar';
 import UploadPosts from './UploadPosts';
 import Posts from './Posts';
 export default class MainScreen extends Component {
@@ -12,7 +13,8 @@ export default class MainScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.header}>
+        <SearchBar />
+        {/* <View style={styles.header}>
           <TouchableOpacity>
             <Icon
               name={'bars'}
@@ -21,7 +23,7 @@ export default class MainScreen extends Component {
               color={'white'}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <UploadPosts />
         <Posts />
       </View>
