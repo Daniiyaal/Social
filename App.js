@@ -10,8 +10,11 @@ import SignUp from './src/components/SignUp';
 import CodeVerification from './src/components/CodeVerification';
 import MainScreen from './src/components/Main/MainScreen';
 import Chat from './src/components/Main/Chat';
+import Messages from './src/components/Main/Messages';
 import AddFriend from './src/components/Main/AddFriend';
 import Notification from './src/components/Main/Notification';
+import SearchBar from './src/components/SearchBar';
+import CreatePost from './src/components/Main/UploadPosts/CreatePost';
 import {View} from 'react-native';
 
 const Stack = createStackNavigator();
@@ -41,23 +44,6 @@ const MainStackScreen = () => {
         options={navOptionHandler}
       />
     </MainStack.Navigator>
-  );
-};
-
-const ChatStackScreen = ({navigation, route}) => {
-  if (route.state && route.state.routeNames[route.state.index] === 'Chat') {
-    navigation.setOptions({tabBarVisible: false});
-  } else {
-    navigation.setOptions({tabBarVisible: true});
-  }
-  return (
-    <ChatStack.Navigator>
-      <ChatStack.Screen
-        name="Chat"
-        component={Chat}
-        options={navOptionHandler}
-      />
-    </ChatStack.Navigator>
   );
 };
 
@@ -97,8 +83,6 @@ function bottomTabs() {
           let iconName;
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home';
-          } else if (route.name === 'Chat') {
-            iconName = focused ? 'envelope-open-o' : 'envelope';
           } else if (route.name == 'AddFriend') {
             iconName = focused ? 'user-plus' : 'user-plus';
           } else if (route.name == 'Notification') {
@@ -120,7 +104,6 @@ function bottomTabs() {
       }}>
       <Tab.Screen name="Home" component={MainStackScreen} />
       <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
-      {/* <Tab.Screen name="Chat" component={ChatStackScreen} /> */}
       <Tab.Screen name="Notification" component={NotificationStackScreen} />
     </Tab.Navigator>
   );
@@ -144,10 +127,14 @@ class AppContainer extends Component {
     // const {signedIn} = this.props;
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignUp" headerMode="none">
+        <Stack.Navigator initialRouteName="CreatePost" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="CodeVerification" component={CodeVerification} />
+          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Messages" component={Messages} />
+          <Stack.Screen name="SearchBar" component={SearchBar} />
+          <Stack.Screen name="CreatePost" component={CreatePost} />
           <Stack.Screen name="MainScreen" component={bottomTabs} />
         </Stack.Navigator>
       </NavigationContainer>

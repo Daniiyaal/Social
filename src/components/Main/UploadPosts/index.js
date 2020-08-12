@@ -11,7 +11,9 @@ export default class UploadPosts extends Component {
           <Thumbnail source={require('../../../assets/samplebg.png')} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{flex: 0.9, height: 60}}>
+        <TouchableOpacity
+          style={{flex: 0.9, height: 60}}
+          onPress={() => this.props.navigation.navigate('CreatePost')}>
           <View style={styles.uploadPostsTextField}>
             <Text style={{left: 10}}>Write Something...</Text>
           </View>

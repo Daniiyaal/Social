@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -19,17 +20,9 @@ export default class MainScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <StatusBar backgroundColor="#009387" barStyle="light-content" />
         <SearchBar />
-        {/* <View style={styles.header}>
-          <TouchableOpacity>
-            <Icon
-              name={'bars'}
-              size={25}
-              style={styles.drawerIcon}
-              color={'white'}
-            />
-          </TouchableOpacity>
-        </View> */}
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <UploadPosts />
           <Posts />

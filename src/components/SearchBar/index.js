@@ -11,7 +11,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const {navigation} = this.props;
     return (
       <Header searchBar rounded>
         <View style={styles.searchBar}>
@@ -22,7 +26,8 @@ export default class SearchBar extends Component {
             underlineColorAndroid="#fff"
             style={styles.search}
           />
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Chat')}>
             <MaterialCommunityIcons
               name={'facebook-messenger'}
               style={styles.messengerIcon}

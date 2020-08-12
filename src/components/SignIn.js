@@ -351,14 +351,14 @@ const Login = ({navigation}) => {
           </Animatable.View>
         )}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             this.PaymentResponse.navigation.navigate('Forgot Password');
           }}>
           <Text style={{color: '#009387', marginTop: 15}}>
             Forgot password?
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.button}>
           <TouchableOpacity
             style={styles.signIn}
