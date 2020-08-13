@@ -8,6 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+console.disableYellowBox = true;
 
 import SearchBar from '../SearchBar';
 import UploadPosts from './UploadPosts';
