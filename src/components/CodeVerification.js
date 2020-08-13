@@ -12,23 +12,23 @@ export default class CodeVerification extends Component {
     };
   }
   componentDidMount() {
-    this.interval = setInterval(
-      () =>
-        this.setState((prevState) => ({
-          timer: prevState.timer - 1,
-        })),
-      1000,
-    );
+    // this.interval = setInterval(
+    //   () =>
+    //     this.setState((prevState) => ({
+    //       timer: prevState.timer - 1,
+    //     })),
+    //   1000,
+    // );
   }
 
   componentDidUpdate() {
-    if (this.state.timer === 0) {
-      clearInterval(this.interval);
-    }
+    // if (this.state.timer === 0) {
+    //   clearInterval(this.interval);
+    // }
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
   }
   onComplete(inputtedPin) {
     if (inputtedPin == '1234') {
@@ -48,6 +48,7 @@ export default class CodeVerification extends Component {
               width: '70%',
               height: 100,
               marginLeft: '15%',
+              marginTop: 200,
             }}
             pinCount={4}
             keyboardType="phone-pad"

@@ -1,7 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+console.disableYellowBox = true;
 
+import SearchBar from '../SearchBar';
 import UploadPosts from './UploadPosts';
 import Posts from './Posts';
 export default class MainScreen extends Component {
@@ -12,18 +21,13 @@ export default class MainScreen extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.header}>
-          <TouchableOpacity>
-            <Icon
-              name={'bars'}
-              size={25}
-              style={styles.drawerIcon}
-              color={'white'}
-            />
-          </TouchableOpacity>
-        </View>
-        <UploadPosts />
-        <Posts />
+        <StatusBar backgroundColor="#009387" barStyle="light-content" />
+        <SearchBar />
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <UploadPosts />
+          <Posts />
+        </ScrollView>
       </View>
     );
   }
