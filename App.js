@@ -12,6 +12,7 @@ import MainScreen from './src/components/Main/MainScreen';
 import Chat from './src/components/Main/Chat';
 import Messages from './src/components/Main/Messages';
 import AddFriend from './src/components/Main/AddFriend';
+import Profile from './src/components/Main/Profile';
 import Notification from './src/components/Main/Notification';
 import SearchBar from './src/components/SearchBar';
 import CreatePost from './src/components/Main/UploadPosts/CreatePost';
@@ -21,7 +22,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const MainStack = createStackNavigator();
-const ChatStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 const AddFriendStack = createStackNavigator();
 const NotificationStack = createStackNavigator();
 
@@ -44,6 +45,18 @@ const MainStackScreen = () => {
         options={navOptionHandler}
       />
     </MainStack.Navigator>
+  );
+};
+
+const ProfileStackScreen = () => {
+  return (
+    <ProfileStack.Navigator>
+      <ProfileStack.Screen
+        name="Profile"
+        component={Profile}
+        options={navOptionHandler}
+      />
+    </ProfileStack.Navigator>
   );
 };
 
@@ -87,6 +100,8 @@ function bottomTabs() {
             iconName = focused ? 'user-plus' : 'user-plus';
           } else if (route.name == 'Notification') {
             iconName = focused ? 'bell-o' : 'bell';
+          } else if (route.name == 'Profile') {
+            iconName = focused ? 'user-circle-o' : 'user-circle';
           }
           // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
@@ -103,6 +118,7 @@ function bottomTabs() {
         },
       }}>
       <Tab.Screen name="Home" component={MainStackScreen} />
+      <Tab.Screen name="Profile" component={ProfileStackScreen} />
       <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
       <Tab.Screen name="Notification" component={NotificationStackScreen} />
     </Tab.Navigator>
