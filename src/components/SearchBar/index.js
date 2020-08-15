@@ -20,7 +20,14 @@ export default class SearchBar extends Component {
     return (
       <Header searchBar rounded>
         <View style={styles.searchBar}>
-          {/* <FontAwesome name={'camera'} color="#fff" size={26} /> */}
+          {/* <TouchableOpacity onPress={() => alert('drawer')}>
+            <FontAwesome
+              name={'bars'}
+              color="#fff"
+              size={22}
+              style={styles.barIcon}
+            />
+          </TouchableOpacity> */}
           <TextInput
             placeholder="Search"
             placeholderTextColor="rgba(255,255,255,0.5)"
@@ -49,14 +56,18 @@ const styles = StyleSheet.create({
     width: '104%',
   },
   search: {
-    width: '90%',
+    width: '80%',
     left: 5,
     fontSize: 18,
   },
   messengerIcon: {
     color: '#fff',
-    // left: 5,
     right: 10,
     top: 3,
+  },
+  barIcon: {
+    left: 10,
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
 });
