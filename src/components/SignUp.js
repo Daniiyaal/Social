@@ -179,8 +179,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
-import Toast from 'react-native-simple-toast';
-// import Auth from '@react-native-firebase/auth';
+
+import Auth from '@react-native-firebase/auth';
+import firebase from '@react-native-firebase/app';
+import {auth} from 'firebase';
 
 const Signup = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -317,6 +319,24 @@ const Signup = ({navigation}) => {
     //       });
   };
 
+  const signup = () => {
+    auth()
+      .createUserWithEmailAndPassword('abc@gmail.com', '1234567kl')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -381,7 +401,7 @@ const Signup = ({navigation}) => {
                 placeholder="Your Email Address"
                 style={styles.textInput}
                 autoCapitalize="none"
-                keyboardType="number-pad"
+                keyboardType="email-address"
                 onChangeText={(val) => emailInputChange(val)}
               />
               {data.check_emailInputChange ? (
@@ -459,9 +479,7 @@ const Signup = ({navigation}) => {
               </Text>
             </View>
             <View style={styles.button}>
-              <TouchableOpacity
-                style={styles.signIn}
-                onPress={() => navigation.navigate('CodeVerification')}>
+              <TouchableOpacity style={styles.signIn} onPress={() => signup()}>
                 <LinearGradient
                   colors={['#08d4c4', '#01ab9d']}
                   style={styles.signIn}>

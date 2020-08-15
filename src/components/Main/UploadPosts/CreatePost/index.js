@@ -11,6 +11,7 @@ import {
 import {Thumbnail, CardItem} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
+import firestore from '@react-native-firebase/firestore';
 
 export default class CreatePost extends Component {
   constructor(props) {
@@ -48,6 +49,26 @@ export default class CreatePost extends Component {
       }
     });
   };
+
+  uploadPost() {
+    alert('clicked');
+    firestore()
+      .collection('posts')
+      .add({
+        content: 'Travelling',
+        images: [],
+        videos: [],
+        time: '',
+        author: 'userID',
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
     const {name} = this.props;
     return (
@@ -57,7 +78,7 @@ export default class CreatePost extends Component {
             <Icon name={'close'} size={25} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert('post')}>
+          <TouchableOpacity onPress={() => this.uploadPost()}>
             <Text style={styles.postText}>POST</Text>
           </TouchableOpacity>
         </View>

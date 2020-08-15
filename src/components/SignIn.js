@@ -180,6 +180,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {useTheme} from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
 
 // import {AuthContext} from '../../../components/context';
 
@@ -254,8 +255,22 @@ const Login = ({navigation}) => {
     }
   };
 
-  const loginHandle = (userName, password) => {
-    navigation.navigate('MainScreen');
+  const loginHandle = (email, password) => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((res) => {
+        console.log('done: ', res);
+        navigation.navigate('MainScreen', {
+          user: {
+            uid: res.user.uid,
+            name: res.user.displayName,
+          },
+        });
+      })
+      .catch(() => {
+        console.log('error ');
+      });
+    //
   };
 
   return (
