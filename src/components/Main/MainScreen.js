@@ -14,6 +14,13 @@ import SearchBar from '../SearchBar';
 import UploadPosts from './UploadPosts';
 import Posts from './Posts';
 export default class MainScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: this.props.navigation.state.params.user.name,
+      uid: this.props.navigation.state.params.user.uid,
+    };
+  }
   //removing header
   static navigationOptions = {
     headerShown: false,
