@@ -14,9 +14,7 @@ export default class SearchBar extends Component {
   constructor(props) {
     super(props);
   }
-  moveToChat = () => {
-    this.props.navigation.navigate('Chat');
-  };
+
   render() {
     const {navigation} = this.props;
     return (
@@ -30,8 +28,7 @@ export default class SearchBar extends Component {
             style={styles.search}
           />
 
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Chat')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
             <MaterialCommunityIcons
               name={'facebook-messenger'}
               style={styles.messengerIcon}

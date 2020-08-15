@@ -148,28 +148,12 @@ class AppContainer extends Component {
         <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen
-            name="CodeVerification"
-            component={CodeVerification}
-            navigation={navigation}
-          />
-          <Stack.Screen
-            name="MainScreen"
-            component={bottomTabs}
-            navigation={navigation}
-          />
-          <Stack.Screen name="Chat" component={Chat} navigation={navigation} />
+          <Stack.Screen name="CodeVerification" component={CodeVerification} />
+          <Stack.Screen name="MainScreen" component={bottomTabs} />
+          <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="Messages" component={Messages} />
-          <Stack.Screen
-            name="SearchBar"
-            component={SearchBar}
-            navigation={navigation}
-          />
-          <Stack.Screen
-            name="CreatePost"
-            component={CreatePost}
-            navigation={navigation}
-          />
+          <Stack.Screen name="SearchBar" component={SearchBar} />
+          <Stack.Screen name="CreatePost" component={CreatePost} />
         </Stack.Navigator>
       </NavigationContainer>
     );

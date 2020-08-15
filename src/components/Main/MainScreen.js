@@ -30,7 +30,7 @@ export default class MainScreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <StatusBar backgroundColor="#009387" barStyle="light-content" />
-        <SearchBar />
+        <SearchBar navigation={navigation} />
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <UploadPosts navigation={navigation} />
