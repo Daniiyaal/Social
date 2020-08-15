@@ -9,46 +9,22 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import {Thumbnail, CardItem} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import firestore from '@react-native-firebase/firestore';
 
 export default class CreatePost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filePath: {},
+      image: null,
+      images: null,
     };
   }
-  // chooseFile = () => {
-  //   var options = {
-  //     title: 'Select Image',
 
-  //     storageOptions: {
-  //       skipBackup: true,
-  //       path: 'images',
-  //     },
-  //   };
-  //   ImagePicker.showImagePicker(options, (response) => {
-  //     console.log('Response = ', response);
-
-  //     if (response.didCancel) {
-  //       console.log('User cancelled image picker');
-  //     } else if (response.error) {
-  //       console.log('ImagePicker Error: ', response.error);
-  //     } else if (response.customButton) {
-  //       console.log('User tapped custom button: ', response.customButton);
-  //       alert(response.customButton);
-  //     } else {
-  //       let source = response;
-  //       this.setState({
-  //         filePath: source,
-  //       });
-  //     }
-  //   });
-  // };
   pickMultiple() {
     ImagePicker.openPicker({
       multiple: true,
@@ -56,6 +32,7 @@ export default class CreatePost extends Component {
       sortOrder: 'desc',
       includeExif: true,
       forceJpg: true,
+      mediaType: 'any',
     }).then((images) => {
       this.setState({
         image: null,
@@ -70,6 +47,35 @@ export default class CreatePost extends Component {
         }),
       });
     });
+  }
+  scaledHeight(oldW, oldH, newW) {
+    return (oldH / oldW) * newW;
+  }
+
+  renderVideo(video) {
+    console.log('rendering video');
+    return (
+      <View style={{height: 100, width: 100}}>
+        <Video
+          source={{uri: video.uri, type: video.mime}}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          }}
+          rate={1}
+          paused={false}
+          volume={1}
+          muted={false}
+          resizeMode={'cover'}
+          onError={(e) => console.log(e)}
+          onLoad={(load) => console.log(load)}
+          repeat={true}
+        />
+      </View>
+    );
   }
 
   uploadPost() {
@@ -90,7 +96,17 @@ export default class CreatePost extends Component {
         console.log(err);
       });
   }
+  renderImage(image) {
+    return <Image style={{width: 100, height: 100}} source={image} />;
+  }
 
+  renderAsset(image) {
+    if (image.mime && image.mime.toLowerCase().indexOf('video/') !== -1) {
+      return this.renderVideo(image);
+    }
+
+    return this.renderImage(image);
+  }
   render() {
     const {name} = this.props;
     return (
@@ -126,16 +142,14 @@ export default class CreatePost extends Component {
                   style={styles.input}
                   multiline={true}
                 />
-                <Image
-                  source={{
-                    uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
-                  }}
-                  style={{width: 100, height: 100}}
-                />
-                {/* <Image
-                source={{uri: this.state.filePath.uri}}
-                style={{width: 250, height: 250}}
-              /> */}
+                <ScrollView>
+                  {this.state.image ? this.renderAsset(this.state.image) : null}
+                  {this.state.images
+                    ? this.state.images.map((i) => (
+                        <View key={i.uri}>{this.renderAsset(i)}</View>
+                      ))
+                    : null}
+                </ScrollView>
               </View>
               <View>
                 <TouchableOpacity onPress={this.pickMultiple.bind(this)}>
@@ -161,13 +175,12 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 10,
     paddingRight: 10,
+    paddingBottom: 30,
     borderBottomWidth: 1,
     borderBottomColor: '#00000055',
   },
   cardItem: {
     backgroundColor: '#fff',
-    // borderWidth: 1,
-    // paddingBottom: 150,
   },
   nameText: {
     fontWeight: '700',

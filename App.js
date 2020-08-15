@@ -110,7 +110,7 @@ function bottomTabs() {
       <Tab.Screen name="Home" component={MainStackScreen} />
       <Tab.Screen name="Profile" component={ProfileStackScreen} />
       <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
-      <Tab.Screen name="Notification" component={NotificationStackScreen} />
+      {/* <Tab.Screen name="Notification" component={NotificationStackScreen} /> */}
       <Tab.Screen name="." component={drawer} />
     </Tab.Navigator>
   );
