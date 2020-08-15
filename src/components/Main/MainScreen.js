@@ -17,8 +17,8 @@ export default class MainScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.navigation.state.params.user.name,
-      uid: this.props.navigation.state.params.user.uid,
+      // username: this.props.navigation.state.params.user.name,
+      // uid: this.props.navigation.state.params.user.uid,
     };
   }
   //removing header
@@ -26,13 +26,14 @@ export default class MainScreen extends Component {
     headerShown: false,
   };
   render() {
+    const {navigation} = this.props;
     return (
       <View style={styles.mainContainer}>
         <StatusBar backgroundColor="#009387" barStyle="light-content" />
         <SearchBar />
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <UploadPosts />
+          <UploadPosts navigation={navigation} />
           <Posts />
         </ScrollView>
       </View>

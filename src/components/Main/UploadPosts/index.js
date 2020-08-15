@@ -5,6 +5,7 @@ import {Card, Thumbnail} from 'native-base';
 
 export default class UploadPosts extends Component {
   render() {
+    const {navigation} = this.props;
     return (
       <Card style={styles.uploadPosts}>
         <TouchableOpacity>
@@ -13,7 +14,7 @@ export default class UploadPosts extends Component {
 
         <TouchableOpacity
           style={{flex: 1, height: 60}}
-          onPress={() => this.props.navigation.navigate('CreatePost')}>
+          onPress={() => navigation.navigate('CreatePost')}>
           <View style={styles.uploadPostsTextField}>
             <Text style={{left: 10}}>Write Something...</Text>
           </View>

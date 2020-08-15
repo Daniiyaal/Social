@@ -97,7 +97,8 @@ export default class CreatePost extends Component {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <SafeAreaView style={{backgroundColor: '#fff'}}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => alert('close')}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.goBack(null)}>
               <Icon name={'close'} size={25} />
             </TouchableOpacity>
 
