@@ -7,6 +7,8 @@ import {
   StyleSheet,
   TextInput,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import {Thumbnail, CardItem} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,95 +21,114 @@ export default class CreatePost extends Component {
       filePath: {},
     };
   }
-  chooseFile = () => {
-    var options = {
-      title: 'Select Image',
+  // chooseFile = () => {
+  //   var options = {
+  //     title: 'Select Image',
 
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //   };
+  //   ImagePicker.showImagePicker(options, (response) => {
+  //     console.log('Response = ', response);
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        let source = response;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else if (response.customButton) {
+  //       console.log('User tapped custom button: ', response.customButton);
+  //       alert(response.customButton);
+  //     } else {
+  //       let source = response;
+  //       this.setState({
+  //         filePath: source,
+  //       });
+  //     }
+  //   });
+  // };
+  pickMultiple() {
+    ImagePicker.openPicker({
+      multiple: true,
+      waitAnimationEnd: false,
+      sortOrder: 'desc',
+      includeExif: true,
+      forceJpg: true,
+    })
+      .then((images) => {
         this.setState({
-          filePath: source,
+          image: null,
+          images: images.map((i) => {
+            console.log('received image', i);
+            return {
+              uri: i.path,
+              width: i.width,
+              height: i.height,
+              mime: i.mime,
+            };
+          }),
         });
-      }
-    });
-  };
+      })
+      .catch((e) => alert(e));
+  }
   render() {
     const {name} = this.props;
     return (
-      <SafeAreaView style={{backgroundColor: '#fff'}}>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => alert('close')}>
-            <Icon name={'close'} size={25} />
-          </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={{backgroundColor: '#fff'}}>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => alert('close')}>
+              <Icon name={'close'} size={25} />
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => alert('post')}>
-            <Text style={styles.postText}>POST</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={() => alert('post')}>
+              <Text style={styles.postText}>POST</Text>
+            </TouchableOpacity>
+          </View>
 
-        <CardItem style={styles.cardItem}>
-          <View style={{flexDirection: 'row'}}>
-            <Thumbnail
-              source={require('../../../../assets/samplebg.png')}
-              resizeMethod="scale"
-            />
-            <View
-              style={{
-                left: 3,
-                flexDirection: 'column',
-                flex: 1,
-              }}>
-              <Text style={styles.nameText}>Ali Virk</Text>
-              <TextInput
-                placeholder="Write Something..."
-                style={styles.input}
-                multiline={true}
+          <CardItem style={styles.cardItem}>
+            <View style={{flexDirection: 'row'}}>
+              <Thumbnail
+                source={require('../../../../assets/samplebg.png')}
+                resizeMethod="scale"
               />
-              <Image
-                source={{
-                  uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
-                }}
-                style={{width: 100, height: 100}}
-              />
-              {/* <Image
+
+              <View
+                style={{
+                  left: 3,
+                  flexDirection: 'column',
+                  flex: 1,
+                }}>
+                <Text style={styles.nameText}>Ali Virk</Text>
+                <TextInput
+                  placeholder="Write Something..."
+                  style={styles.input}
+                  multiline={true}
+                />
+                <Image
+                  source={{
+                    uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
+                  }}
+                  style={{width: 100, height: 100}}
+                />
+                {/* <Image
                 source={{uri: this.state.filePath.uri}}
                 style={{width: 250, height: 250}}
               /> */}
+              </View>
+              <View>
+                <TouchableOpacity onPress={this.pickMultiple.bind(this)}>
+                  <Image
+                    source={require('../../../../assets/camera.png')}
+                    style={styles.cameraImage}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </CardItem>
-        <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-          <TouchableOpacity
-            style={styles.cameraIcon}
-            onPress={this.chooseFile.bind(this)}>
-            <Icon name={'camera'} size={20} />
-            {/* <Text>Photo</Text> */}
-          </TouchableOpacity>
-          <TouchableOpacity
-            // style={styles.cameraIcon}
-            onPress={() => alert('video')}>
-            <Icon name={'video-camera'} size={20} />
-            {/* <Text>Photo</Text> */}
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+          </CardItem>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -115,7 +136,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    height: '10%',
+    height: '15%',
     justifyContent: 'space-between',
     paddingTop: 15,
     paddingLeft: 10,
@@ -126,7 +147,7 @@ const styles = StyleSheet.create({
   cardItem: {
     backgroundColor: '#fff',
     // borderWidth: 1,
-    paddingBottom: 150,
+    // paddingBottom: 150,
   },
   nameText: {
     fontWeight: '700',
@@ -142,10 +163,15 @@ const styles = StyleSheet.create({
   },
   cameraIcon: {
     // top: 75,
-    width: '10%',
-    borderRadius: 25,
+    // width: '10%',
+    // borderRadius: 25,
+    // height: 30,
+    // alignItems: 'center',
+    // alignSelf: 'center',
+  },
+  cameraImage: {
     height: 30,
-    alignItems: 'center',
-    alignSelf: 'center',
+    width: 45,
+    marginTop: 5,
   },
 });

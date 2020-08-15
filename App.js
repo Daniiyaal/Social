@@ -113,8 +113,9 @@ function bottomTabs() {
         swipeEnabled: true,
         labelStyle: {
           fontSize: 16,
-          paddingTop: 20,
-          paddingBottom: 10,
+          height: 1,
+          // paddingTop: 20,
+          // paddingBottom: 10,
         },
       }}>
       <Tab.Screen name="Home" component={MainStackScreen} />
@@ -125,14 +126,14 @@ function bottomTabs() {
   );
 }
 
-function drawer() {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Chat" component={Chat} />
-      <Drawer.Screen name="Home" component={MainScreen} />
-    </Drawer.Navigator>
-  );
-}
+// function drawer() {
+//   return (
+//     <Drawer.Navigator>
+//       <Drawer.Screen name="Chat" component={Chat} />
+//       <Drawer.Screen name="Home" component={MainScreen} />
+//     </Drawer.Navigator>
+//   );
+// }
 
 class AppContainer extends Component {
   constructor(props) {
@@ -141,17 +142,34 @@ class AppContainer extends Component {
   }
   render() {
     // const {signedIn} = this.props;
+    const {navigation} = this.props;
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
+        <Stack.Navigator initialRouteName="CreatePost" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="CodeVerification" component={CodeVerification} />
-          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen
+            name="CodeVerification"
+            component={CodeVerification}
+            navigation={navigation}
+          />
+          <Stack.Screen
+            name="MainScreen"
+            component={bottomTabs}
+            navigation={navigation}
+          />
+          <Stack.Screen name="Chat" component={Chat} navigation={navigation} />
           <Stack.Screen name="Messages" component={Messages} />
-          <Stack.Screen name="SearchBar" component={SearchBar} />
-          <Stack.Screen name="CreatePost" component={CreatePost} />
-          <Stack.Screen name="MainScreen" component={bottomTabs} />
+          <Stack.Screen
+            name="SearchBar"
+            component={SearchBar}
+            navigation={navigation}
+          />
+          <Stack.Screen
+            name="CreatePost"
+            component={CreatePost}
+            navigation={navigation}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
