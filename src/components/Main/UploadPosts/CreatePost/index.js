@@ -84,10 +84,10 @@ export default class CreatePost extends Component {
       .collection('posts')
       .add({
         content: 'Travelling',
-        images: [],
+        images: this.state.filePath,
         videos: [],
         time: '',
-        author: 'userID',
+        author: '123',
       })
       .then((res) => {
         console.log(res);

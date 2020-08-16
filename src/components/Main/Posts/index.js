@@ -41,14 +41,49 @@ export default class Posts extends Component {
   render() {
     const {paused, viewPlayIcon, muted} = this.state;
     const AllPosts = (item) => {
-      if (item.type == 'text') {
+      // if (item.type == 'text') {
+      //   return (
+      //     <Card>
+      //       <PostsTopView name={item.userName} time={item.time} />
+      //       <View style={{left: '5%'}}>
+      //         <Text style={{color: '#000', fontSize: 16}}>
+      //           {item.postSource}
+      //         </Text>
+      //       </View>
+      //       <PostsBottomView />
+      //     </Card>
+      //   );
+      // } else if (item.type == 'image') {
+      //   return (
+      //     <Card>
+      //       <PostsTopView name={item.userName} time={item.time} />
+      //       <View
+      //         style={{
+      //           borderBottomWidth: 1,
+      //           borderColor: '#ccc',
+      //           borderTopWidth: 1,
+      //         }}>
+      //         <Image
+      //           source={item.postSource}
+      //           style={{
+      //             height: Dimensions.get('screen').height / 1.8,
+      //             width: '100%',
+      //           }}
+      //           resizeMethod="scale"
+      //           resizeMode="cover"
+      //         />
+      //       </View>
+      //       <PostsBottomView />
+      //     </Card>
+      //   );
+      // }
+
+      if (item.images == '') {
         return (
           <Card>
             <PostsTopView name={item.userName} time={item.time} />
             <View style={{left: '5%'}}>
-              <Text style={{color: '#000', fontSize: 16}}>
-                {item.postSource}
-              </Text>
+              <Text style={{color: '#000', fontSize: 16}}>{item.content}</Text>
             </View>
             <PostsBottomView />
           </Card>
