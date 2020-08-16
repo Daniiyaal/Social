@@ -194,14 +194,7 @@ const styles = StyleSheet.create({
   postText: {
     fontSize: 16,
   },
-  cameraIcon: {
-    // top: 75,
-    // width: '10%',
-    // borderRadius: 25,
-    // height: 30,
-    // alignItems: 'center',
-    // alignSelf: 'center',
-  },
+  cameraIcon: {},
   cameraImage: {
     height: 30,
     width: 45,
