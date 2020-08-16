@@ -174,6 +174,7 @@ import {
   StyleSheet,
   StatusBar,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -194,6 +195,7 @@ const Login = ({navigation}) => {
     secureTextEntry: true,
     isValidUser: true,
     isValidPassword: true,
+    animating: true,
   });
 
   const {colors} = useTheme();
@@ -273,9 +275,29 @@ const Login = ({navigation}) => {
     //
   };
 
+  closeActivityIndicator = () => {
+    setTimeout(
+      () =>
+        this.setState({
+          animating: false,
+        }),
+      60000,
+    );
+  };
+
+  componentDidMount = () => {
+    this.closeActivityIndicator();
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <ActivityIndicator
+        animating={true}
+        color="#009387"
+        size="large"
+        style={styles.activityIndicator}
+      />
       <View style={styles.header}>
         <Text style={styles.text_header}>Welcome!</Text>
       </View>
@@ -489,5 +511,11 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80,
   },
 });

@@ -1,12 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  Modal,
-  SafeAreaView,
-} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, View, Modal} from 'react-native';
 import {CardItem, Thumbnail} from 'native-base';
 import AntiDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

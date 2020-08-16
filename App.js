@@ -135,7 +135,7 @@ class AppContainer extends Component {
     const {navigation} = this.props;
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
+        <Stack.Navigator initialRouteName="SignIn" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="CodeVerification" component={CodeVerification} />

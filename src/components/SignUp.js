@@ -173,6 +173,7 @@ import {
   StatusBar,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -337,10 +338,30 @@ const Signup = ({navigation}) => {
         console.error(error);
       });
   };
+
+  closeActivityIndicator = () => {
+    setTimeout(
+      () =>
+        this.setState({
+          animating: false,
+        }),
+      60000,
+    );
+  };
+
+  componentDidMount = () => {
+    this.closeActivityIndicator();
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <StatusBar backgroundColor="#009387" barStyle="light-content" />
+        <ActivityIndicator
+          animating={true}
+          color="#009387"
+          size="large"
+          style={styles.activityIndicator}
+        />
         <View style={styles.header}>
           <Text style={styles.text_header}>Register Now!</Text>
         </View>
@@ -588,5 +609,11 @@ const styles = StyleSheet.create({
   },
   color_textPrivate: {
     color: 'grey',
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80,
   },
 });
