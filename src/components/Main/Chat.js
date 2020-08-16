@@ -131,21 +131,21 @@ export default class Chat extends Component {
     };
   }
 
-  render() {
-    const swipeSetting = {
-      autoClose: true,
-      onClose: (secId, rowId, direction) => {},
-      onOpen: (secId, rowId, direction) => {},
-      right: [
-        {
-          onPress: () => {},
-          text: 'Delete',
-          type: 'delete',
-        },
-      ],
-      rowId: this.props.index,
-    };
-  }
+  // render() {
+  //   const swipeSetting = {
+  //     autoClose: true,
+  //     onClose: (secId, rowId, direction) => {},
+  //     onOpen: (secId, rowId, direction) => {},
+  //     right: [
+  //       {
+  //         onPress: () => {},
+  //         text: 'Delete',
+  //         type: 'delete',
+  //       },
+  //     ],
+  //     rowId: this.props.index,
+  //   };
+  // }
 
   static navigationOptions = {
     tabBarIcon: ({tintColor}) => (

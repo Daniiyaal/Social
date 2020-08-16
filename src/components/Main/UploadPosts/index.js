@@ -5,6 +5,7 @@ import {Card, Thumbnail} from 'native-base';
 
 export default class UploadPosts extends Component {
   render() {
+    const {navigation} = this.props;
     return (
       <Card style={styles.uploadPosts}>
         <TouchableOpacity>
@@ -12,17 +13,17 @@ export default class UploadPosts extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{flex: 0.9, height: 60}}
-          onPress={() => this.props.navigation.navigate('CreatePost')}>
+          style={{flex: 1, height: 60}}
+          onPress={() => navigation.navigate('CreatePost')}>
           <View style={styles.uploadPostsTextField}>
             <Text style={{left: 10}}>Write Something...</Text>
           </View>
         </TouchableOpacity>
-
+        {/* 
         <TouchableOpacity>
           <Ionicons name="md-images" size={30} />
           <Text>Photo</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </Card>
     );
   }

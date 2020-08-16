@@ -16,7 +16,6 @@ import Profile from './src/components/Main/Profile';
 import Notification from './src/components/Main/Notification';
 import SearchBar from './src/components/SearchBar';
 import CreatePost from './src/components/Main/UploadPosts/CreatePost';
-import {View} from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,16 +24,6 @@ const MainStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const AddFriendStack = createStackNavigator();
 const NotificationStack = createStackNavigator();
-
-// function Header() {
-//   <View
-//     style={{
-//       flexDirection: 'row',
-//       height: 50,
-//       borderWidth: 1,
-//       borderColor: 'red',
-//     }}></View>;
-// }
 
 const MainStackScreen = () => {
   return (
@@ -102,6 +91,8 @@ function bottomTabs() {
             iconName = focused ? 'bell-o' : 'bell';
           } else if (route.name == 'Profile') {
             iconName = focused ? 'user-circle-o' : 'user-circle';
+          } else if (route.name == '.') {
+            iconName = focused ? 'bars' : 'bars';
           }
           // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} />;
@@ -113,14 +104,14 @@ function bottomTabs() {
         swipeEnabled: true,
         labelStyle: {
           fontSize: 16,
-          paddingTop: 20,
-          paddingBottom: 10,
+          height: 1,
         },
       }}>
       <Tab.Screen name="Home" component={MainStackScreen} />
       <Tab.Screen name="Profile" component={ProfileStackScreen} />
       <Tab.Screen name="AddFriend" component={AddFriendStackScreen} />
-      <Tab.Screen name="Notification" component={NotificationStackScreen} />
+      {/* <Tab.Screen name="Notification" component={NotificationStackScreen} /> */}
+      <Tab.Screen name="." component={drawer} />
     </Tab.Navigator>
   );
 }
@@ -141,18 +132,24 @@ class AppContainer extends Component {
   }
   render() {
     // const {signedIn} = this.props;
+    const {navigation} = this.props;
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="CodeVerification" component={CodeVerification} />
+          <Stack.Screen name="MainScreen" component={bottomTabs} />
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="Messages" component={Messages} />
           <Stack.Screen name="SearchBar" component={SearchBar} />
           <Stack.Screen name="CreatePost" component={CreatePost} />
-          <Stack.Screen name="MainScreen" component={bottomTabs} />
         </Stack.Navigator>
+        {/* <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Chat" component={Chat} />
+          <Drawer.Screen name="Home" component={bottomTabs} />
+          <Drawer.Screen name="Profile" component={ProfileStackScreen} />
+        </Drawer.Navigator> */}
       </NavigationContainer>
     );
   }

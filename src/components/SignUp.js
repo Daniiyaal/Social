@@ -272,7 +272,7 @@ const Signup = ({navigation}) => {
     });
   };
   const onComplete = () => {
-    this.props.navigation.navigate('Chat', {name: this.state.username});
+    this.props.navigation.navigate('MainScreen', {name: this.state.username});
   };
   const signUp = () => {
     // const {password, confirmPassword, username, email, accept} = this.state;
