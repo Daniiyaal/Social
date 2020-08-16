@@ -180,9 +180,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 
-import Auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import firebase from '@react-native-firebase/app';
-import {auth} from 'firebase';
 
 const Signup = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -321,9 +320,14 @@ const Signup = ({navigation}) => {
 
   const signup = () => {
     auth()
-      .createUserWithEmailAndPassword('abc@gmail.com', '1234567kl')
-      .then((res) => {
-        console.log(res);
+      .createUserWithEmailAndPassword('abcdef@gmail.com', '1234567kl')
+      .then((userInfo) => {
+        userInfo.user
+          .updateProfile({displayName: 'Pawan Kumar'})
+          .then(firebase.auth().currentUser.reload())
+          .then((s) => {
+            console.log(userInfo);
+          });
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
@@ -334,7 +338,7 @@ const Signup = ({navigation}) => {
           console.log('That email address is invalid!');
         }
 
-        console.error(error);
+        console.error('error is: ', error);
       });
   };
   return (

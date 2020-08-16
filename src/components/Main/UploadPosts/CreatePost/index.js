@@ -40,12 +40,13 @@ export default class CreatePost extends Component {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-        let source = response;
+        let source = response.uri;
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
         this.setState({
           filePath: source,
         });
+
       }
     });
   };
@@ -56,10 +57,10 @@ export default class CreatePost extends Component {
       .collection('posts')
       .add({
         content: 'Travelling',
-        images: [],
+        images: this.state.filePath,
         videos: [],
         time: '',
-        author: 'userID',
+        author: '123',
       })
       .then((res) => {
         console.log(res);
